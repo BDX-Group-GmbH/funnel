@@ -15,7 +15,7 @@ Lokale Vorschau: `python3 -m http.server 8080` in diesem Ordner, dann `http://lo
 
 ## Lead-Versand (n8n-Webhook)
 Klick auf „Objekt-Kalkulation jetzt erhalten“ sendet per `POST` JSON an `https://n8n.srv1043875.hstgr.cloud/webhook/funnel-submit` mit Header `Authorization: Bearer <Token>` (URL und Token oben in `js/funnel.js`).
-Felder: `vorname`, `nachname`, `email`, `telefon` (+49 vorangestellt), `consent`, `antworten` (ziel, beruf, einkommen, eigenkapital, erfahrung, zeitraum, prioritaet), `funnel`, `seite`, `tracking` (utm_*, fbclid, gclid), `zeitpunkt`.
+Felder: `vorname`, `nachname`, `email`, `telefon` (E.164, z. B. `+491701234567`; ohne Ländervorwahl gilt +49), `consent`, `antworten` (ziel, beruf, einkommen, eigenkapital, erfahrung, zeitraum, prioritaet), `funnel`, `seite`, `tracking` (utm_*, fbclid, gclid), `zeitpunkt`.
 Danke-Seite erscheint nur bei HTTP 2xx, sonst Fehlermeldung am Formular (Lead geht nicht still verloren).
 Voraussetzungen in n8n: Workflow aktiv, Webhook-Methode POST, CORS „Allowed Origins“ für die Funnel-Domains (Browser sendet Preflight wegen Authorization-Header).
 Sicherheit: Der Token steht im Browser-Code und ist damit öffentlich lesbar. Er schützt nur vor zufälligen Aufrufen. In n8n Eingaben prüfen; besser später ein serverseitiger Proxy (PHP auf ALL-INKL), der den Token hält.

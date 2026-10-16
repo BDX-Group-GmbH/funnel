@@ -137,12 +137,24 @@
     return out;
   }
 
+  // Telefonnummer in E.164 (+491701234567): Standardland Deutschland
+  function toE164(raw) {
+    var v = String(raw).trim().replace(/[^\d+]/g, '');
+    if (v.indexOf('00') === 0) v = '+' + v.slice(2);
+    if (v.charAt(0) === '+') v = '+' + v.slice(1).replace(/\D/g, '');
+    else if (v.charAt(0) === '0') v = '+49' + v.slice(1);
+    else v = '+49' + v;
+    if (v.indexOf('+490') === 0) v = '+49' + v.slice(4);
+    return /^\+[1-9]\d{7,14}$/.test(v) ? v : '';
+  }
+
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
     if (sending) return;
     var ok = true;
     Array.prototype.forEach.call(form.querySelectorAll('input'), function (inp) {
       var valid = inp.type === 'checkbox' ? inp.checked : inp.value.trim().length > 1 && (inp.type !== 'email' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inp.value.trim()));
+      if (inp.type === 'tel' && !toE164(inp.value)) valid = false;
       if (inp.type !== 'checkbox') inp.parentNode.classList.toggle('invalid', !valid);
       if (!valid) ok = false;
     });
@@ -150,12 +162,12 @@
     errBox.hidden = ok;
     if (!ok) return;
 
-    var tel = form.telefon.value.trim();
+    var tel = toE164(form.telefon.value);
     var payload = {
       vorname: form.vorname.value.trim(),
       nachname: form.nachname.value.trim(),
       email: form.email.value.trim(),
-      telefon: /^\+/.test(tel) ? tel : '+49 ' + tel.replace(/^0/, ''),
+      telefon: tel,
       consent: true,
       antworten: answers,
       funnel: 'bdx-objekt-kalkulation',
