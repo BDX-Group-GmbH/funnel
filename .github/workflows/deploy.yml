@@ -1,0 +1,58 @@
+# Deploy nach funnel.bdx-group.de (ALL-INKL Webspace) per FTPS.
+# Sicherheit: Der FTP-Zugang in ALL-INKL ist auf den Ordner der Subdomain beschränkt.
+# Die Hauptseite bdx-group.de (Lovable) und die DNS werden davon nicht berührt.
+# Benötigte Repository-Secrets: KAS_FTP_SERVER, KAS_FTP_USER, KAS_FTP_PASSWORD
+name: Deploy funnel.bdx-group.de
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-funnel
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Secrets vorhanden?
+        id: check
+        env:
+          S: ${{ secrets.KAS_FTP_SERVER }}
+          U: ${{ secrets.KAS_FTP_USER }}
+          P: ${{ secrets.KAS_FTP_PASSWORD }}
+        run: |
+          if [ -z "$S" ] || [ -z "$U" ] || [ -z "$P" ]; then
+            echo "FTP-Secrets fehlen noch – Deploy übersprungen."; echo "ok=false" >> "$GITHUB_OUTPUT"
+          else echo "ok=true" >> "$GITHUB_OUTPUT"; fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.ok == 'true'
+
+      - name: Upload per FTPS (nur geänderte Dateien, keine Komplettlöschung)
+        if: steps.check.outputs.ok == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.KAS_FTP_SERVER }}
+          username: ${{ secrets.KAS_FTP_USER }}
+          password: ${{ secrets.KAS_FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./
+          server-dir: ./
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            README.md
+            **/node_modules/**
+
+      - name: Live-Check
+        if: steps.check.outputs.ok == 'true'
+        run: |
+          sleep 5
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://funnel.bdx-group.de/)
+          echo "HTTP $code"; [ "$code" = "200" ]
