@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Die BDX Objekt-Kalkulation | BDX Group</title>
+<meta name="description" content="Die vollständige Kalkulation einer aktuellen Berliner BDX-Wohnung: Kaufpreis, Miete, Rate, laufende Kosten und Steuereffekt, vor und nach Steuern.">
+<link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="testbar">Testversion · Formular sendet keine Daten</div>
+
+<header class="top">
+  <a class="brand" href="#start" data-go="start" aria-label="BDX Group, zum Start"><span class="brand-mark">BDX</span><span class="brand-name">GROUP</span></a>
+</header>
+
+<main id="app">
+
+  <!-- SCREEN: Landing -->
+  <section class="screen is-active" data-s="start" id="start">
+    <div class="wrap center">
+      <p class="eyebrow">Echte Objektrechnung · Kostenlos</p>
+      <h1 class="h-hero">Die BDX<br>Objekt-Kalkulation</h1>
+      <ul class="benefits">
+        <li><span class="ic" data-icon="house"></span><span>Kaufpreis, Miete, Rate und laufende Kosten einer aktuellen Berliner BDX-Wohnung</span></li>
+        <li><span class="ic" data-icon="split"></span><span>Cashflow vor Steuern und Steuereffekt getrennt ausgewiesen, Zeile für Zeile</span></li>
+        <li><span class="ic" data-icon="compare"></span><span>Direkter Vergleich: Neubau-Wohnung gegen revitalisierten Bestand in derselben Lage</span></li>
+      </ul>
+      <button class="cta" type="button" data-go="q1" id="cta-start">Kalkulation kostenlos anfordern →</button>
+      <p class="fine">Hinweis: Beispielrechnung eines konkreten Objekts. Keine Steuer- oder Anlageberatung.</p>
+    </div>
+
+    <figure class="photo-band">
+      <img src="img/berlin-luftbild.webp" width="1600" height="900" alt="Luftaufnahme von Berlin mit Spree und Uferbebauung" loading="lazy">
+    </figure>
+
+    <div class="wrap wide center">
+      <h2 class="h-sec">Die BDX Group in Zahlen:</h2>
+      <div class="facts">
+        <div class="fact"><span class="num">01</span><strong>Family-Office-<wbr>DNA</strong><span>Inhabergeführter Projektentwickler</span></div>
+        <div class="fact"><span class="num">02</span><strong>15 Mio. €</strong><span>Geplantes Ankaufsvolumen 2026</span></div>
+        <div class="fact"><span class="num">03</span><strong>90 % Eigenmittel</strong><span>Finanzierung aus Eigenmitteln &amp; Investorennetzwerk</span></div>
+        <div class="fact"><span class="num">04</span><strong>200 Mio. €</strong><span>Erfahrung aus Projekten mit diesem Gesamtvolumen</span></div>
+      </div>
+    </div>
+
+    <div class="dark">
+      <div class="wrap center">
+        <p class="eyebrow on-dark">Das Neubau-im-Bestand-Prinzip</p>
+        <h2 class="h-sec on-dark">Berliner Bestand, saniert auf Neubauniveau</h2>
+        <p class="lead on-dark">Wir kaufen Bestand unter dem Durchschnittspreis pro Quadratmeter und revitalisieren jede Wohnung nach einem standardisierten Konzept entlang von 10 Qualitätsdimensionen.</p>
+      </div>
+      <figure class="photo-in-dark wrap wide">
+        <img src="img/wohnung-revitalisiert.webp" width="1400" height="933" alt="Wohnzimmer mit orangefarbener Wand, hellem Sofa und Pflanzen" loading="lazy">
+      </figure>
+      <div class="wrap wide">
+        <ol class="dims">
+          <li><span>01</span>Energieeffizienz + Wasserverbrauch</li>
+          <li><span>02</span>Wohnqualität</li>
+          <li><span>03</span>Grundriss + Raumlogik</li>
+          <li><span>04</span>Neubauästhetik</li>
+          <li><span>05</span>Technik + Infrastruktur</li>
+          <li><span>06</span>Licht + Atmosphäre</li>
+          <li><span>07</span>Nachhaltigkeit + Gesundheit</li>
+          <li><span>08</span>Schall + Akustik</li>
+          <li><span>09</span>Sicherheit + Privatsphäre</li>
+          <li><span>10</span>Integrierte Möblierung</li>
+        </ol>
+      </div>
+      <div class="wrap center">
+        <button class="cta cta-light" type="button" data-go="q1" id="cta-start-2">Kalkulation kostenlos anfordern →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENS: Fragen werden aus js/funnel.js gerendert -->
+  <div id="questions"></div>
+
+  <!-- SCREEN: Kontakt -->
+  <section class="screen" data-s="kontakt" id="kontakt">
+    <div class="wrap narrow center">
+      <p class="progress-label">Letzter Schritt</p>
+      <h2 class="h-q">Wohin dürfen wir dir die Objekt-Kalkulation schicken?</h2>
+      <form id="lead-form" novalidate>
+        <label class="field"><span class="field-ic" aria-hidden="true">👋</span><input name="vorname" type="text" autocomplete="given-name" placeholder="Dein Vorname" required></label>
+        <label class="field"><span class="field-ic" aria-hidden="true">👋</span><input name="nachname" type="text" autocomplete="family-name" placeholder="Dein Nachname" required></label>
+        <label class="field"><span class="field-ic" aria-hidden="true">✉️</span><input name="email" type="email" autocomplete="email" placeholder="Deine E-Mail-Adresse" required></label>
+        <label class="field"><span class="field-ic prefix" aria-hidden="true">+49</span><input name="telefon" type="tel" autocomplete="tel" placeholder="Deine Telefonnummer" required></label>
+        <label class="consent"><input name="consent" type="checkbox" required><span>Ja, ich stimme den Datenschutzbedingungen zu und möchte die Kalkulation per E-Mail erhalten. Widerruf ist jederzeit möglich.</span></label>
+        <p class="form-error" id="form-error" role="alert" hidden>Bitte fülle alle Felder aus und bestätige die Datenschutzbedingungen.</p>
+        <button class="cta block" type="submit" id="cta-submit">Objekt-Kalkulation jetzt erhalten →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- SCREEN: Danke -->
+  <section class="screen" data-s="danke" id="danke">
+    <div class="wrap narrow center">
+      <h2 class="h-hero small">Deine Objekt-Kalkulation ist auf dem Weg.</h2>
+      <ol class="steps">
+        <li><span class="step-n">1</span><span><strong>Schau in dein Postfach.</strong> Die E-Mail kommt von einer offiziellen Adresse der BDX Group.</span></li>
+        <li><span class="step-n">2</span><span><strong>Lies die Kalkulation in Ruhe.</strong> Kaufpreis, Miete, Rate, laufende Kosten und Steuereffekt, getrennt ausgewiesen. Etwa 10 Minuten.</span></li>
+        <li><span class="step-n">3</span><span><strong>Rechne sie mit deinen Zahlen.</strong> Wenn du wissen willst, wie die Wohnung mit deinem Einkommen und Eigenkapital aussieht, sprich direkt mit Jarl.</span></li>
+      </ol>
+      <h2 class="h-sec">Schon jetzt mit Jarl sprechen?<br>15 Minuten reichen.</h2>
+      <p class="lead">Jarl Beger ist Geschäftsführer der BDX Group und rechnet die Wohnung mit dir an deinen Zahlen durch.</p>
+      <a class="cta" id="cta-termin" href="mailto:jarl@bdx-group.de?subject=Termin%20zur%20Objekt-Kalkulation">Termin mit Jarl anfragen →</a>
+      <p class="fine">Hinweis: Die Objekt-Kalkulation ist eine Beispielrechnung und stellt keine Steuer- oder Anlageberatung dar. Steuerliche Effekte hängen von deiner persönlichen Situation ab.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <a href="https://bdx-group.de/impressum" target="_blank" rel="noopener">Impressum</a>
+  <span>·</span><span>Datenschutz (folgt)</span>
+  <p>BDX Group GmbH · Crellestraße 33 · 10827 Berlin</p>
+</footer>
+<div class="bar" aria-hidden="true"><div class="bar-fill" id="bar-fill"></div></div>
+
+<script src="js/funnel.js"></script>
+</body>
+</html>
