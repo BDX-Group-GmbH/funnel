@@ -3,6 +3,10 @@
 (function () {
   'use strict';
 
+  // Lead-Webhook (n8n). Hinweis: Der Token ist im Browser sichtbar (statische Seite).
+  var WEBHOOK_URL = 'https://n8n.srv1043875.hstgr.cloud/webhook/funnel-submit';
+  var WEBHOOK_TOKEN = '6453d89e79162bcf776bb2c3ba21e4131fbda6a3cb3dd2cc4bd00da9f2307d87';
+
   var P = '<svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">';
   var E = '</svg>';
   var ICONS = {
@@ -120,21 +124,73 @@
     show(id, false);
   });
 
-  // Formular: Validierung, keine Datenübertragung in der Testversion
+  // Formular: Validierung + Versand an den n8n-Webhook
   var form = document.getElementById('lead-form');
+  var submitBtn = document.getElementById('cta-submit');
+  var errBox = document.getElementById('form-error');
+  var ERR_FIELDS = errBox.textContent;
+  var sending = false;
+
+  function params() {
+    var out = {}, q = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(function (k) { if (q.get(k)) out[k] = q.get(k); });
+    return out;
+  }
+
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
+    if (sending) return;
     var ok = true;
     Array.prototype.forEach.call(form.querySelectorAll('input'), function (inp) {
       var valid = inp.type === 'checkbox' ? inp.checked : inp.value.trim().length > 1 && (inp.type !== 'email' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inp.value.trim()));
       if (inp.type !== 'checkbox') inp.parentNode.classList.toggle('invalid', !valid);
       if (!valid) ok = false;
     });
-    document.getElementById('form-error').hidden = ok;
+    errBox.textContent = ERR_FIELDS;
+    errBox.hidden = ok;
     if (!ok) return;
-    track('lead_submit_test', { answers: answers });
-    history.replaceState({ s: 'danke' }, '', '#danke');
-    show('danke', false);
+
+    var tel = form.telefon.value.trim();
+    var payload = {
+      vorname: form.vorname.value.trim(),
+      nachname: form.nachname.value.trim(),
+      email: form.email.value.trim(),
+      telefon: /^\+/.test(tel) ? tel : '+49 ' + tel.replace(/^0/, ''),
+      consent: true,
+      antworten: answers,
+      funnel: 'bdx-objekt-kalkulation',
+      seite: location.origin + location.pathname,
+      tracking: params(),
+      zeitpunkt: new Date().toISOString()
+    };
+
+    sending = true;
+    submitBtn.disabled = true;
+    var label = submitBtn.textContent;
+    submitBtn.textContent = 'Wird gesendet …';
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + WEBHOOK_TOKEN },
+      body: JSON.stringify(payload),
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      track('lead_submit', { status: res.status });
+      history.replaceState({ s: 'danke' }, '', '#danke');
+      show('danke', false);
+    }).catch(function (e) {
+      track('lead_submit_error', { error: String(e) });
+      errBox.textContent = 'Das Senden hat leider nicht geklappt. Bitte versuche es in einem Moment erneut.';
+      errBox.hidden = false;
+    }).then(function () {
+      clearTimeout(timer);
+      sending = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = label;
+    });
   });
 
   // Start: Deep-Links auf Zwischenschritte ohne Antworten starten vorne

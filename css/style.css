@@ -122,3 +122,4 @@ main{flex:1}
 [tabindex="-1"]:focus{outline:none}
 @media (max-width:819px){.fact strong{font-size:16px}}
 @media (min-width:820px){.wrap.wide{max-width:1080px}}
+.cta:disabled{opacity:.6;cursor:wait}
