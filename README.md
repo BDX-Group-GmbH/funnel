@@ -15,7 +15,7 @@ Lokale Vorschau: `python3 -m http.server 8080` in diesem Ordner, dann `http://lo
 
 ## Rechner (Steuer · Cashflow · Kaufpreis)
 - `rechner/index.html?modus=steuer|cashflow|kaufpreis`: ein Rechner für alle drei Modi (Rechen-Engine Steuerjahr 2026 unverändert aus den gelieferten Dateien, Annahmen im `CONFIG`-Block oben).
-- Eingebettet auf der Landing in der Sektion `#rechner` (nach den 10 Qualitätsdimensionen) als Tabs mit iframe; Steuerung in `js/rechner-embed.js` (lädt jeden Rechner erst beim ersten Klick, Höhe per postMessage, nur gleiche Origin). Sprunglink unter dem ersten CTA.
+- Eingebettet auf der Danke-Seite (Sektion `#rechner`) als Tabs mit iframe; startet erst nach erfolgreichem Formularversand, Kontaktdaten kommen per sessionStorage `bdx_lead`, daher kein zweites Formular; Steuerung in `js/rechner-embed.js` (lädt jeden Rechner erst beim ersten Klick, Höhe per postMessage, nur gleiche Origin).
 - Lead geht an denselben n8n-Webhook wie der Funnel, gleiche Feldstruktur; `funnel` = `bdx-rechner-<modus>`, Rechner-Eingaben und Ergebnisse stehen in `antworten`. Ergebnis erscheint erst nach HTTP 2xx, sonst Fehlermeldung.
 - Schrift selbst gehostet (keine Google Fonts), CI-Blau `#001EFF`.
 

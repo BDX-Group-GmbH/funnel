@@ -356,6 +356,11 @@ if (typeof module !== 'undefined') module.exports = BDX;
     el.appendChild(g);
   }
 
+  // Kontaktdaten aus dem Funnel (gleiche Origin, sessionStorage), dann kein zweites Formular
+  function bekannterLead() {
+    try { var l = JSON.parse(sessionStorage.getItem("bdx_lead") || "null"); return l && l.email ? l : null; } catch (e) { return null; }
+  }
+
   function zvE() { return A.einkommenArt === "zve" ? A.einkommen : BDX.zvEausBrutto(A.einkommen); }
 
   function berechnen() {
@@ -380,7 +385,15 @@ if (typeof module !== 'undefined') module.exports = BDX;
       var h = document.createElement("p"); h.className = "q"; h.textContent = def.q; card.appendChild(h);
       if (def.hint) { var hi = document.createElement("p"); hi.className = "hint"; hi.textContent = def.hint; card.appendChild(hi); }
       else card.appendChild(div("")).style.height = "10px";
-      def.render(card, function () { step++; if (step >= FLOW.length) { result = berechnen(); phase = "lead"; } render(); toTop(); });
+      def.render(card, function () {
+        step++;
+        if (step >= FLOW.length) {
+          result = berechnen();
+          var known = bekannterLead();
+          if (known) { lead = known; senden().catch(function () {}); phase = "result"; } else phase = "lead";
+        }
+        render(); toTop();
+      });
       if (step > 0) { var b = btn("back", "← Zurück"); b.onclick = function () { step--; render(); }; card.appendChild(b); }
     } else if (phase === "lead") {
       $("bar").style.width = (FLOW.length / total * 100) + "%";

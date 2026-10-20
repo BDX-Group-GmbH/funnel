@@ -8,7 +8,7 @@
 <meta name="description" content="Die vollständige Kalkulation einer aktuellen Berliner BDX-Wohnung: Kaufpreis, Miete, Rate, laufende Kosten und Steuereffekt, vor und nach Steuern.">
 <link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 <div class="testbar">Testversion</div>
@@ -31,7 +31,6 @@
       </ul>
       <button class="cta" type="button" data-go="q1" id="cta-start">Kalkulation kostenlos anfordern →</button>
       <p class="fine">Hinweis: Beispielrechnung eines konkreten Objekts. Keine Steuer- oder Anlageberatung.</p>
-      <p class="calc-jump"><a href="#rechner">Oder direkt selbst rechnen: Steuer, Cashflow, Kaufpreis ↓</a></p>
     </div>
 
     <figure class="photo-band">
@@ -76,22 +75,6 @@
       </div>
     </div>
 
-    <!-- Rechner (rechner/index.html?modus=…, eingebettet per iframe, Steuerung: js/rechner-embed.js) -->
-    <div class="calc" id="rechner">
-      <div class="wrap center">
-        <p class="eyebrow">Selbst rechnen · 5 Fragen</p>
-        <h2 class="h-sec">Rechne es mit deinen Zahlen durch</h2>
-        <p class="lead">Wähle, was dich am meisten interessiert. Gerechnet wird mit einer typischen sanierten BDX-Wohnung in Berlin.</p>
-      </div>
-      <div class="wrap narrow">
-        <div class="calc-tabs" role="tablist" aria-label="Rechner auswählen">
-          <button type="button" role="tab" class="calc-tab" data-modus="steuer" aria-selected="true">Steuerersparnis</button>
-          <button type="button" role="tab" class="calc-tab" data-modus="cashflow" aria-selected="false">Cashflow</button>
-          <button type="button" role="tab" class="calc-tab" data-modus="kaufpreis" aria-selected="false">Passender Kaufpreis</button>
-        </div>
-        <div class="calc-frame" id="calc-frames"></div>
-      </div>
-    </div>
   </section>
 
   <!-- SCREENS: Fragen werden aus js/funnel.js gerendert -->
@@ -123,6 +106,25 @@
         <li><span class="step-n">2</span><span><strong>Lies die Kalkulation in Ruhe.</strong> Kaufpreis, Miete, Rate, laufende Kosten und Steuereffekt, getrennt ausgewiesen. Etwa 10 Minuten.</span></li>
         <li><span class="step-n">3</span><span><strong>Rechne sie mit deinen Zahlen.</strong> Wenn du wissen willst, wie die Wohnung mit deinem Einkommen und Eigenkapital aussieht, sprich direkt mit Jarl.</span></li>
       </ol>
+    </div>
+
+    <!-- Rechner (rechner/index.html?modus=…, eingebettet per iframe, Steuerung: js/rechner-embed.js) -->
+    <div class="calc" id="rechner">
+      <div class="wrap center">
+        <p class="eyebrow">Während du wartest · 5 Fragen</p>
+        <h2 class="h-sec">Rechne es mit deinen Zahlen durch</h2>
+        <p class="lead">Wähle, was dich am meisten interessiert. Gerechnet wird mit einer typischen sanierten BDX-Wohnung in Berlin.</p>
+      </div>
+      <div class="wrap narrow">
+        <div class="calc-tabs" role="tablist" aria-label="Rechner auswählen">
+          <button type="button" role="tab" class="calc-tab" data-modus="steuer" aria-selected="true">Steuerersparnis</button>
+          <button type="button" role="tab" class="calc-tab" data-modus="cashflow" aria-selected="false">Cashflow</button>
+          <button type="button" role="tab" class="calc-tab" data-modus="kaufpreis" aria-selected="false">Passender Kaufpreis</button>
+        </div>
+        <div class="calc-frame" id="calc-frames"></div>
+      </div>
+    </div>
+    <div class="wrap narrow center">
       <h2 class="h-sec">Schon jetzt mit Jarl sprechen?<br>15 Minuten reichen.</h2>
       <p class="lead">Jarl Beger ist Geschäftsführer der BDX Group und rechnet die Wohnung mit dir an deinen Zahlen durch.</p>
       <a class="cta" id="cta-termin" href="mailto:jarl@bdx-group.de?subject=Termin%20zur%20Objekt-Kalkulation">Termin mit Jarl anfragen →</a>
@@ -139,7 +141,7 @@
 </footer>
 <div class="bar" aria-hidden="true"><div class="bar-fill" id="bar-fill"></div></div>
 
-<script src="js/funnel.js"></script>
-<script src="js/rechner-embed.js"></script>
+<script src="js/funnel.js?v=2"></script>
+<script src="js/rechner-embed.js?v=2"></script>
 </body>
 </html>

@@ -30,14 +30,6 @@
     Object.keys(frames).forEach(function (k) { frames[k].hidden = k !== modus; });
   }
 
-  // Sprunglink: kein Hash-Wechsel (funnel.js würde per popstate auf Start zurückspringen)
-  Array.prototype.forEach.call(document.querySelectorAll('a[href="#rechner"]'), function (a) {
-    a.addEventListener('click', function (ev) {
-      ev.preventDefault();
-      document.getElementById('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-
   tabs.forEach(function (t) { t.addEventListener('click', function () { open(t.getAttribute('data-modus')); }); });
 
   window.addEventListener('message', function (ev) {
@@ -51,5 +43,7 @@
     }
   });
 
-  open('steuer');
+  // Start erst auf der Danke-Seite (dann liegen Kontaktdaten vor, zweites Formular entfällt)
+  var started = false;
+  document.addEventListener('bdx:danke', function () { if (!started) { started = true; open('steuer'); } });
 })();

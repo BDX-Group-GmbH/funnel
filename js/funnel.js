@@ -191,8 +191,10 @@
     }).then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       track('lead_submit', { status: res.status });
+      try { sessionStorage.setItem('bdx_lead', JSON.stringify({ vorname: payload.vorname, nachname: payload.nachname, email: payload.email, telefon: payload.telefon })); } catch (e) {}
       history.replaceState({ s: 'danke' }, '', '#danke');
       show('danke', false);
+      document.dispatchEvent(new CustomEvent('bdx:danke'));
     }).catch(function (e) {
       track('lead_submit_error', { error: String(e) });
       errBox.textContent = 'Das Senden hat leider nicht geklappt. Bitte versuche es in einem Moment erneut.';
