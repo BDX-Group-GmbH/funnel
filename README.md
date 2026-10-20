@@ -13,6 +13,12 @@ Aufbau 1:1 nach dem capacura-Funnel `info.capacura.de/termin-v2/` (Landing mit L
 
 Lokale Vorschau: `python3 -m http.server 8080` in diesem Ordner, dann `http://localhost:8080/`. Kein Build, kein Backend.
 
+## Rechner (Steuer · Cashflow · Kaufpreis)
+- `rechner/index.html?modus=steuer|cashflow|kaufpreis`: ein Rechner für alle drei Modi (Rechen-Engine Steuerjahr 2026 unverändert aus den gelieferten Dateien, Annahmen im `CONFIG`-Block oben).
+- Eingebettet auf der Landing in der Sektion `#rechner` (nach den 10 Qualitätsdimensionen) als Tabs mit iframe; Steuerung in `js/rechner-embed.js` (lädt jeden Rechner erst beim ersten Klick, Höhe per postMessage, nur gleiche Origin). Sprunglink unter dem ersten CTA.
+- Lead geht an denselben n8n-Webhook wie der Funnel, gleiche Feldstruktur; `funnel` = `bdx-rechner-<modus>`, Rechner-Eingaben und Ergebnisse stehen in `antworten`. Ergebnis erscheint erst nach HTTP 2xx, sonst Fehlermeldung.
+- Schrift selbst gehostet (keine Google Fonts), CI-Blau `#001EFF`.
+
 ## Lead-Versand (n8n-Webhook)
 Klick auf „Objekt-Kalkulation jetzt erhalten“ sendet per `POST` JSON an `https://n8n.srv1043875.hstgr.cloud/webhook/funnel-submit` mit Header `Authorization: Bearer <Token>` (URL und Token oben in `js/funnel.js`).
 Felder: `vorname`, `nachname`, `email`, `telefon` (E.164, z. B. `+491701234567`; ohne Ländervorwahl gilt +49), `consent`, `antworten` (ziel, beruf, einkommen, eigenkapital, erfahrung, zeitraum, prioritaet), `funnel`, `seite`, `tracking` (utm_*, fbclid, gclid), `zeitpunkt`.

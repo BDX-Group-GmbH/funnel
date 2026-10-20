@@ -123,3 +123,15 @@ main{flex:1}
 @media (max-width:819px){.fact strong{font-size:16px}}
 @media (min-width:820px){.wrap.wide{max-width:1080px}}
 .cta:disabled{opacity:.6;cursor:wait}
+
+/* Rechner-Sektion (iframe-Einbettung) */
+.calc{padding:8px 0 56px}
+.calc-jump{margin:14px 0 0;font-size:14px}
+.calc-jump a{color:var(--blue);font-weight:700;text-decoration:none}
+.calc-tabs{display:flex;gap:6px;background:var(--soft);border-radius:var(--radius);padding:5px;margin:0 0 14px}
+.calc-tab{flex:1;border:0;background:none;border-radius:9px;padding:11px 6px;font-size:14px;font-weight:700;color:#4a4a4a;cursor:pointer;line-height:1.25}
+.calc-tab[aria-selected="true"]{background:var(--white);color:var(--blue);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.calc-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.calc-frame iframe{display:block;width:100%;border:0;background:var(--white);transition:height .2s ease}
+@media (max-width:420px){.calc-tab{font-size:13px;padding:10px 4px}}
+.calc-frame iframe[hidden]{display:none}

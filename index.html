@@ -31,6 +31,7 @@
       </ul>
       <button class="cta" type="button" data-go="q1" id="cta-start">Kalkulation kostenlos anfordern →</button>
       <p class="fine">Hinweis: Beispielrechnung eines konkreten Objekts. Keine Steuer- oder Anlageberatung.</p>
+      <p class="calc-jump"><a href="#rechner">Oder direkt selbst rechnen: Steuer, Cashflow, Kaufpreis ↓</a></p>
     </div>
 
     <figure class="photo-band">
@@ -72,6 +73,23 @@
       </div>
       <div class="wrap center">
         <button class="cta cta-light" type="button" data-go="q1" id="cta-start-2">Kalkulation kostenlos anfordern →</button>
+      </div>
+    </div>
+
+    <!-- Rechner (rechner/index.html?modus=…, eingebettet per iframe, Steuerung: js/rechner-embed.js) -->
+    <div class="calc" id="rechner">
+      <div class="wrap center">
+        <p class="eyebrow">Selbst rechnen · 5 Fragen</p>
+        <h2 class="h-sec">Rechne es mit deinen Zahlen durch</h2>
+        <p class="lead">Wähle, was dich am meisten interessiert. Gerechnet wird mit einer typischen sanierten BDX-Wohnung in Berlin.</p>
+      </div>
+      <div class="wrap narrow">
+        <div class="calc-tabs" role="tablist" aria-label="Rechner auswählen">
+          <button type="button" role="tab" class="calc-tab" data-modus="steuer" aria-selected="true">Steuerersparnis</button>
+          <button type="button" role="tab" class="calc-tab" data-modus="cashflow" aria-selected="false">Cashflow</button>
+          <button type="button" role="tab" class="calc-tab" data-modus="kaufpreis" aria-selected="false">Passender Kaufpreis</button>
+        </div>
+        <div class="calc-frame" id="calc-frames"></div>
       </div>
     </div>
   </section>
@@ -122,5 +140,6 @@
 <div class="bar" aria-hidden="true"><div class="bar-fill" id="bar-fill"></div></div>
 
 <script src="js/funnel.js"></script>
+<script src="js/rechner-embed.js"></script>
 </body>
 </html>
