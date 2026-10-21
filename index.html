@@ -8,7 +8,7 @@
 <meta name="description" content="Die vollständige Kalkulation einer aktuellen Berliner BDX-Wohnung: Kaufpreis, Miete, Rate, laufende Kosten und Steuereffekt, vor und nach Steuern.">
 <link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 <div class="testbar">Testversion</div>
@@ -22,15 +22,15 @@
   <!-- SCREEN: Landing -->
   <section class="screen is-active" data-s="start" id="start">
     <div class="wrap center">
-      <p class="eyebrow">Echte Objektrechnung · Kostenlos</p>
+      <p class="eyebrow">Mit deinen Zahlen · Kostenlos · 2 Minuten</p>
       <h1 class="h-hero">Die BDX<br>Objekt-Kalkulation</h1>
       <ul class="benefits">
-        <li><span class="ic" data-icon="house"></span><span>Kaufpreis, Miete, Rate und laufende Kosten einer aktuellen Berliner BDX-Wohnung</span></li>
-        <li><span class="ic" data-icon="split"></span><span>Cashflow vor Steuern und Steuereffekt getrennt ausgewiesen, Zeile für Zeile</span></li>
-        <li><span class="ic" data-icon="compare"></span><span>Direkter Vergleich: Neubau-Wohnung gegen revitalisierten Bestand in derselben Lage</span></li>
+        <li><span class="ic" data-icon="percent"></span><span>Deine Steuerersparnis, dein monatlicher Cashflow oder dein passender Kaufpreis, je nach deinem Ziel</span></li>
+        <li><span class="ic" data-icon="split"></span><span>Gerechnet mit deinem Einkommen und Eigenkapital und einer typischen sanierten BDX-Wohnung in Berlin</span></li>
+        <li><span class="ic" data-icon="house"></span><span>Ergebnis direkt nach den Fragen, Zeile für Zeile nachvollziehbar</span></li>
       </ul>
       <button class="cta" type="button" data-go="q1" id="cta-start">Kalkulation kostenlos anfordern →</button>
-      <p class="fine">Hinweis: Beispielrechnung eines konkreten Objekts. Keine Steuer- oder Anlageberatung.</p>
+      <p class="fine">Hinweis: Beispielrechnung auf Basis typischer BDX-Objekte. Keine Steuer- oder Anlageberatung.</p>
     </div>
 
     <figure class="photo-band">
@@ -84,15 +84,16 @@
   <section class="screen" data-s="kontakt" id="kontakt">
     <div class="wrap narrow center">
       <p class="progress-label">Letzter Schritt</p>
-      <h2 class="h-q">Wohin dürfen wir dir die Objekt-Kalkulation schicken?</h2>
+      <h2 class="h-q">Deine Auswertung ist fertig.</h2>
+      <p class="q-help top">Trag dich ein und du siehst dein Ergebnis sofort auf der nächsten Seite.</p>
       <form id="lead-form" novalidate>
         <label class="field"><span class="field-ic" aria-hidden="true">👋</span><input name="vorname" type="text" autocomplete="given-name" placeholder="Dein Vorname" required></label>
         <label class="field"><span class="field-ic" aria-hidden="true">👋</span><input name="nachname" type="text" autocomplete="family-name" placeholder="Dein Nachname" required></label>
         <label class="field"><span class="field-ic" aria-hidden="true">✉️</span><input name="email" type="email" autocomplete="email" placeholder="Deine E-Mail-Adresse" required></label>
         <label class="field"><span class="field-ic prefix" aria-hidden="true">+49</span><input name="telefon" type="tel" autocomplete="tel" placeholder="Deine Telefonnummer" required></label>
-        <label class="consent"><input name="consent" type="checkbox" required><span>Ja, ich stimme den Datenschutzbedingungen zu und möchte die Kalkulation per E-Mail erhalten. Widerruf ist jederzeit möglich.</span></label>
+        <label class="consent"><input name="consent" type="checkbox" required><span>Ja, ich stimme den Datenschutzbedingungen zu und bin einverstanden, dass die BDX Group mich zu meiner Auswertung per E-Mail und Telefon kontaktiert. Widerruf ist jederzeit möglich.</span></label>
         <p class="form-error" id="form-error" role="alert" hidden>Bitte fülle alle Felder aus und bestätige die Datenschutzbedingungen.</p>
-        <button class="cta block" type="submit" id="cta-submit">Objekt-Kalkulation jetzt erhalten →</button>
+        <button class="cta block" type="submit" id="cta-submit">Meine Auswertung anzeigen →</button>
       </form>
     </div>
   </section>
@@ -100,27 +101,13 @@
   <!-- SCREEN: Danke -->
   <section class="screen" data-s="danke" id="danke">
     <div class="wrap narrow center">
-      <h2 class="h-hero small">Deine Objekt-Kalkulation ist auf dem Weg.</h2>
-      <ol class="steps">
-        <li><span class="step-n">1</span><span><strong>Schau in dein Postfach.</strong> Die E-Mail kommt von einer offiziellen Adresse der BDX Group.</span></li>
-        <li><span class="step-n">2</span><span><strong>Lies die Kalkulation in Ruhe.</strong> Kaufpreis, Miete, Rate, laufende Kosten und Steuereffekt, getrennt ausgewiesen. Etwa 10 Minuten.</span></li>
-        <li><span class="step-n">3</span><span><strong>Rechne sie mit deinen Zahlen.</strong> Wenn du wissen willst, wie die Wohnung mit deinem Einkommen und Eigenkapital aussieht, sprich direkt mit Jarl.</span></li>
-      </ol>
+      <p class="eyebrow">Deine persönliche Auswertung</p>
+      <h2 class="h-hero small"><span id="danke-name">Hier ist</span> <span id="ergebnis-titel">deine Auswertung</span></h2>
     </div>
 
-    <!-- Rechner (rechner/index.html?modus=…, eingebettet per iframe, Steuerung: js/rechner-embed.js) -->
+    <!-- Ergebnis: genau ein Rechner, gewählt über Frage 1 (rechner/index.html?modus=…&ergebnis=1, Steuerung: js/rechner-embed.js) -->
     <div class="calc" id="rechner">
-      <div class="wrap center">
-        <p class="eyebrow">Während du wartest · 5 Fragen</p>
-        <h2 class="h-sec">Rechne es mit deinen Zahlen durch</h2>
-        <p class="lead">Wähle, was dich am meisten interessiert. Gerechnet wird mit einer typischen sanierten BDX-Wohnung in Berlin.</p>
-      </div>
       <div class="wrap narrow">
-        <div class="calc-tabs" role="tablist" aria-label="Rechner auswählen">
-          <button type="button" role="tab" class="calc-tab" data-modus="steuer" aria-selected="true">Steuerersparnis</button>
-          <button type="button" role="tab" class="calc-tab" data-modus="cashflow" aria-selected="false">Cashflow</button>
-          <button type="button" role="tab" class="calc-tab" data-modus="kaufpreis" aria-selected="false">Passender Kaufpreis</button>
-        </div>
         <div class="calc-frame" id="calc-frames"></div>
       </div>
     </div>
@@ -141,7 +128,8 @@
 </footer>
 <div class="bar" aria-hidden="true"><div class="bar-fill" id="bar-fill"></div></div>
 
-<script src="js/funnel.js?v=2"></script>
-<script src="js/rechner-embed.js?v=2"></script>
+<script src="js/bdx-engine.js?v=3"></script>
+<script src="js/funnel.js?v=3"></script>
+<script src="js/rechner-embed.js?v=3"></script>
 </body>
 </html>

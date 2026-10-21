@@ -27,6 +27,8 @@ Voraussetzungen in n8n: Workflow aktiv, Webhook-Methode POST, CORS „Allowed Or
 Sicherheit: Der Token steht im Browser-Code und ist damit öffentlich lesbar. Er schützt nur vor zufälligen Aufrufen. In n8n Eingaben prüfen; besser später ein serverseitiger Proxy (PHP auf ALL-INKL), der den Token hält.
 
 ## Ablauf
+Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvorsorge -> Cashflow, Vermögen mit Sachwerten + Portfolio erweitern -> Passender Kaufpreis, Einkommensteuer senken -> Steuerersparnis. Frage 6 je Pfad: Kaufpreis-Regler (Steuer, Cashflow) oder Monatsbudget (Kaufpreis). Nach dem Formular zeigt die Danke-Seite genau diesen Rechner im Ergebnis-Modus (`rechner/?modus=…&ergebnis=1`, Daten aus sessionStorage `bdx_rechner`). Rechen-Engine und Musterobjekt: `js/bdx-engine.js`. Kirchensteuer wird nicht abgefragt (gerechnet ohne).
+
 1. Landing: „Echte Objektrechnung · Kostenlos“, „DIE BDX OBJEKT-KALKULATION“, 3 Nutzenpunkte, CTA, Hinweiszeile; darunter Berlin-Luftbild, Key-Facts (von bdx-group.de), Neubau-im-Bestand-Prinzip mit 10 Qualitätsdimensionen (von bdx-group.de), zweiter CTA.
 2. Fragen 1–7: Ziel, Beruf, Bruttoeinkommen, Eigenkapital, Erfahrung, Kaufzeitpunkt, Priorität. Klick springt direkt weiter, Zurück per Button oder Browser.
 3. Kontakt: Vorname, Nachname, E-Mail, Telefon, Datenschutz-Checkbox (Pflicht, clientseitig validiert).

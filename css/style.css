@@ -135,3 +135,18 @@ main{flex:1}
 .calc-frame iframe{display:block;width:100%;border:0;background:var(--white);transition:height .2s ease}
 @media (max-width:420px){.calc-tab{font-size:13px;padding:10px 4px}}
 .calc-frame iframe[hidden]{display:none}
+
+/* Zahlen- und Regler-Fragen (Einkommen, Kaufpreis) */
+.num-q{max-width:480px;margin:0 auto;text-align:left}
+.num-field{margin-bottom:12px}
+.num-field input{font-size:22px;font-weight:800}
+.num-field .unit{font-weight:800;font-size:20px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;font:700 14px var(--font);color:var(--ink);cursor:pointer}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.num-q .cta:disabled{opacity:.45;cursor:not-allowed}
+.slider-val{font-weight:800;font-size:36px;letter-spacing:-.5px;text-align:center;color:var(--blue);margin:4px 0 0}
+.num-q .q-help{text-align:center;margin:6px auto 14px}
+.num-q input[type=range]{width:100%;accent-color:var(--blue);height:32px}
+.range-ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:2px 0 20px}
+.q-help.top{margin:-12px auto 22px}

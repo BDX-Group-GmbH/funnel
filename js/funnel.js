@@ -1,5 +1,5 @@
 /* BDX Group Lead-Funnel · Logik und Inhalte der Fragen.
-   Inhalte bearbeiten: Array QUESTIONS unten. Icons: Objekt ICONS (flache, einfarbige SVGs nach BDX-CI). */
+   Inhalte bearbeiten: Array QUESTIONS unten. Rechen-Engine: js/bdx-engine.js (muss vorher geladen sein). Icons: Objekt ICONS (flache, einfarbige SVGs nach BDX-CI). */
 (function () {
   'use strict';
 
@@ -34,69 +34,111 @@
     handshake: P + '<path d="M2 14h8l4 4 8-5 7 0 7 5h10v18h-8L25 46l-3-3-3 3-3-3-3 3-3-3-1-2-3-4H2V14Z"/><path fill="#fff" opacity=".9" d="m22 22 6 6 8-1-7-6-7 1Z"/>' + E
   };
 
+  // Fragen. Frage 1 ist die Weiche: Sie bestimmt, welcher der 3 Rechner das Ergebnis liefert.
+  // a: [Antworttext, Icon, Rechenwert]. pos: Nummer in der Anzeige (alle Pfade haben 7 Fragen).
   var QUESTIONS = [
-    { id: 'q1', key: 'ziel', q: 'Was ist dein Hauptziel mit einer Kapitalanlage-Immobilie?', a: [
-      ['Vermögen mit Sachwerten aufbauen', 'coins'], ['Einkommensteuer senken', 'percent'],
-      ['Altersvorsorge', 'hourglass'], ['Bestehendes Portfolio erweitern', 'houses'] ] },
-    { id: 'q2', key: 'beruf', q: 'Wie sieht deine berufliche Situation aus?', a: [
+    { id: 'q1', pos: 1, key: 'ziel', q: 'Was ist dein Hauptziel mit einer Kapitalanlage-Immobilie?', a: [
+      ['Vermögen mit Sachwerten aufbauen', 'coins', 'kaufpreis'], ['Einkommensteuer senken', 'percent', 'steuer'],
+      ['Altersvorsorge', 'hourglass', 'cashflow'], ['Bestehendes Portfolio erweitern', 'houses', 'kaufpreis'] ] },
+    { id: 'q2', pos: 2, key: 'beruf', q: 'Wie sieht deine berufliche Situation aus?', a: [
       ['Angestellt, unbefristet', 'employee'], ['Führungskraft / leitende Position', 'lead'],
       ['Selbstständig / Unternehmer', 'briefcase'], ['Verbeamtet', 'shield'] ] },
-    { id: 'q3', key: 'einkommen', q: 'Wie hoch ist dein Bruttojahreseinkommen?', help: 'Die Angabe bleibt bei uns. Sie bestimmt, welche Wohnung und welcher Steuereffekt in deiner Kalkulation realistisch sind.', a: [
-      ['Unter 80.000 €', 'bars1'], ['80.000 bis 120.000 €', 'bars2'],
-      ['120.000 bis 250.000 €', 'bars3'], ['Über 250.000 €', 'bars4'] ] },
-    { id: 'q4', key: 'eigenkapital', q: 'Wie viel Eigenkapital könntest du für einen Kauf einsetzen?', help: 'Gemeint sind freie Mittel nach deiner Notreserve, zum Beispiel für Kaufnebenkosten.', a: [
-      ['Unter 30.000 €', 'bars1'], ['30.000 bis 60.000 €', 'bars2'],
-      ['60.000 bis 150.000 €', 'bars3'], ['Über 150.000 €', 'bars4'] ] },
-    { id: 'q5', key: 'erfahrung', q: 'Welche Erfahrung hast du bereits mit Immobilien?', a: [
-      ['Noch keine', 'search'], ['Selbstgenutzte Immobilie', 'key'],
-      ['Eine Kapitalanlage', 'house'], ['Mehrere Kapitalanlagen', 'houses'] ] },
-    { id: 'q6', key: 'zeitraum', q: 'Wann möchtest du deine nächste Kapitalanlage kaufen?', a: [
-      ['In den nächsten 3 Monaten', 'calendar'], ['In 3 bis 6 Monaten', 'clock'],
-      ['In 6 bis 12 Monaten', 'hourglass'], ['Ich informiere mich erst', 'search'] ] },
-    { id: 'q7', key: 'prioritaet', q: 'Worauf kommt es dir bei einer Wohnung am meisten an?', a: [
+    { id: 'q3', pos: 3, key: 'veranlagung', q: 'Wie wirst du steuerlich veranlagt?', help: 'Bei gemeinsamer Veranlagung rechnen wir mit dem Splittingtarif.', a: [
+      ['Einzeln', 'employee', false], ['Gemeinsam mit Ehepartner', 'handshake', true] ] },
+    { id: 'q4', pos: 4, key: 'einkommen', type: 'zahl', q: 'Wie hoch ist dein Bruttojahreseinkommen?',
+      help: 'Bei gemeinsamer Veranlagung euer gemeinsames Einkommen. Die Angabe bleibt bei uns und fließt nur in deine Auswertung.',
+      chips: [60000, 80000, 120000, 160000, 220000, 300000], min: 20000 },
+    { id: 'q5', pos: 5, key: 'eigenkapital', q: 'Wie viel Eigenkapital könntest du für einen Kauf einsetzen?', help: 'Gemeint sind freie Mittel nach deiner Notreserve, zum Beispiel für Kaufnebenkosten.', a: [
+      ['Unter 30.000 €', 'bars1', 20000], ['30.000 bis 60.000 €', 'bars2', 45000],
+      ['60.000 bis 150.000 €', 'bars3', 100000], ['Über 150.000 €', 'bars4', 200000] ] },
+    // Frage 6 je nach Rechner: Monatsbudget (Kaufpreis) oder Kaufpreis-Regler (Steuer, Cashflow)
+    { id: 'q6b', pos: 6, key: 'budget_monat', q: 'Wie viel darf dich eine Wohnung im Monat höchstens kosten?', help: 'Nach Miete und nach Steuern, also das, was du selbst zuzahlst.', a: [
+      ['Nichts, sie soll sich selbst tragen', 'cashflow', 0], ['Bis 250 €', 'bars1', 250],
+      ['Bis 500 €', 'bars2', 500], ['Mehr als 500 €', 'bars3', 1000] ] },
+    { id: 'q6p', pos: 6, key: 'kaufpreis', type: 'regler', q: 'Mit welchem Kaufpreis möchtest du rechnen?' },
+    { id: 'q7', pos: 7, key: 'prioritaet', q: 'Worauf kommt es dir bei einer Wohnung am meisten an?', a: [
       ['Trägt sich vor Steuern', 'cashflow'], ['Gute Lage in Berlin', 'pin'],
       ['Steuerlicher Effekt', 'percent'], ['Wenig eigener Aufwand', 'handshake'] ] }
   ];
+  var TOTAL = 7;
+  var C = window.BDX_DEFAULTS;
+  var answers = {};   // Klartext fürs CRM
+  var calc = { modus: null, beruf: '', verheiratet: false, einkommen: 0, eigenkapital: 0, budget: 0, invest: C.referenzPreis };
 
-  var ORDER = ['start'].concat(QUESTIONS.map(function (q) { return q.id; }), ['kontakt', 'danke']);
-  var answers = {};
+  function path() { return ['q1', 'q2', 'q3', 'q4', 'q5', calc.modus === 'kaufpreis' ? 'q6b' : 'q6p', 'q7']; }
+  function order() { return ['start'].concat(path(), ['kontakt', 'danke']); }
+  function nextOf(id) { var o = order(); return o[o.indexOf(id) + 1] || 'kontakt'; }
+  function byId(id) { for (var i = 0; i < QUESTIONS.length; i++) if (QUESTIONS[i].id === id) return QUESTIONS[i]; return null; }
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmt(v) { return new Intl.NumberFormat('de-DE').format(Math.round(v)); }
+  function eur(v) { return fmt(v) + ' €'; }
+  function parseNum(s) { return parseInt(String(s).replace(/\D/g, ''), 10) || 0; }
 
-  // Fragen-Screens rendern (nur statische, oben definierte Inhalte; Texte via esc() maskiert, keine Nutzereingaben)
+  // Fragen-Screens rendern (nur statische, oben definierte Inhalte; Texte via esc() maskiert)
   var host = document.getElementById('questions');
-  host.innerHTML = QUESTIONS.map(function (q, i) {
-    var seg = QUESTIONS.map(function (_, j) { return '<i' + (j <= i ? ' class="on"' : '') + '></i>'; }).join('');
-    var next = ORDER[ORDER.indexOf(q.id) + 1];
+  host.innerHTML = QUESTIONS.map(function (q) {
+    var seg = ''; for (var j = 1; j <= TOTAL; j++) seg += '<i' + (j <= q.pos ? ' class="on"' : '') + '></i>';
+    var body;
+    if (q.type === 'zahl') {
+      body = '<div class="num-q"><label class="field num-field"><input id="in-' + q.key + '" inputmode="numeric" autocomplete="off" placeholder="z. B. 120.000" aria-label="' + esc(q.q) + '"><span class="unit">€</span></label>' +
+        '<div class="chips">' + q.chips.map(function (v) { return '<button type="button" class="chip" data-chip="' + v + '">' + eur(v) + '</button>'; }).join('') + '</div>' +
+        '<button type="button" class="cta block" data-weiter="' + q.id + '" disabled>Weiter →</button></div>';
+    } else if (q.type === 'regler') {
+      body = '<div class="num-q"><div class="slider-val" id="regler-wert"></div><p class="q-help" id="regler-info"></p>' +
+        '<input type="range" id="in-kaufpreis" min="' + C.preisMin + '" max="' + C.preisMax + '" step="10000" value="' + C.referenzPreis + '" aria-label="Kaufpreis">' +
+        '<div class="range-ends"><span>' + eur(C.preisMin) + '</span><span>' + eur(C.preisMax) + '</span></div>' +
+        '<button type="button" class="cta block" data-weiter="' + q.id + '">Weiter →</button></div>';
+    } else {
+      body = '<div class="answers" role="group" aria-label="' + esc(q.q) + '">' +
+        q.a.map(function (a, k) {
+          return '<button type="button" class="answer" data-q="' + q.id + '" data-i="' + k + '">' +
+            '<span class="ic">' + ICONS[a[1]] + '</span><span>' + esc(a[0]) + '</span></button>';
+        }).join('') + '</div>';
+    }
     return '<section class="screen" data-s="' + q.id + '" id="' + q.id + '"><div class="wrap center">' +
-      '<p class="progress-label">Frage ' + (i + 1) + ' von ' + QUESTIONS.length + '<span class="seg" aria-hidden="true">' + seg + '</span></p>' +
-      '<h2 class="h-q">' + esc(q.q) + '</h2>' +
-      '<div class="answers" role="group" aria-label="' + esc(q.q) + '">' +
-      q.a.map(function (a) {
-        return '<button type="button" class="answer" data-key="' + q.key + '" data-val="' + esc(a[0]) + '" data-next="' + next + '">' +
-          '<span class="ic">' + ICONS[a[1]] + '</span><span>' + esc(a[0]) + '</span></button>';
-      }).join('') + '</div>' +
-      (q.help ? '<p class="q-help">' + esc(q.help) + '</p>' : '') +
+      '<p class="progress-label">Frage ' + q.pos + ' von ' + TOTAL + '<span class="seg" aria-hidden="true">' + seg + '</span></p>' +
+      '<h2 class="h-q">' + esc(q.q) + '</h2>' + body +
+      (q.help && q.type !== 'regler' ? '<p class="q-help">' + esc(q.help) + '</p>' : '') +
       '<button type="button" class="back" data-back>← Zurück</button>' +
       '</div></section>';
   }).join('');
+
+  // Einkommen: Zahlenfeld + Schnellauswahl
+  var inEk = document.getElementById('in-einkommen');
+  var qEk = byId('q4');
+  var goEk = document.querySelector('[data-weiter="q4"]');
+  function setEinkommen(v) { calc.einkommen = v; inEk.value = v ? fmt(v) : ''; goEk.disabled = v < qEk.min; }
+  inEk.addEventListener('input', function () { setEinkommen(parseNum(inEk.value)); });
+  inEk.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !goEk.disabled) goEk.click(); });
+
+  // Kaufpreis-Regler
+  var inKp = document.getElementById('in-kaufpreis');
+  function updRegler() {
+    calc.invest = +inKp.value;
+    document.getElementById('regler-wert').textContent = eur(calc.invest);
+    document.getElementById('regler-info').textContent = 'Kaufpreis der Wohnung. Dazu kommt die Sanierung mit ' + Math.round(C.sanierungAufKaufpreis * 100) +
+      ' % (' + eur(calc.invest * C.sanierungAufKaufpreis) + '), zusammen ' + eur(calc.invest * (1 + C.sanierungAufKaufpreis)) + '.';
+  }
+  inKp.addEventListener('input', updRegler); updRegler();
 
   // Statische Icons (Landing)
   Array.prototype.forEach.call(document.querySelectorAll('[data-icon]'), function (el) { el.innerHTML = ICONS[el.getAttribute('data-icon')] || ''; });
 
   var current = 'start';
   function show(id, push) {
-    if (ORDER.indexOf(id) < 0) id = 'start';
+    var o = order();
+    if (o.indexOf(id) < 0) id = 'start';
     Array.prototype.forEach.call(document.querySelectorAll('.screen'), function (s) {
       s.classList.toggle('is-active', s.getAttribute('data-s') === id);
     });
     current = id;
-    var idx = ORDER.indexOf(id);
-    document.getElementById('bar-fill').style.width = Math.round(idx / (ORDER.length - 1) * 100) + '%';
+    document.getElementById('bar-fill').style.width = Math.round(o.indexOf(id) / (o.length - 1) * 100) + '%';
     if (push) history.pushState({ s: id }, '', '#' + id);
     window.scrollTo(0, 0);
     var h = document.querySelector('.screen.is-active h1, .screen.is-active h2');
     if (h && id !== 'start') { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    if (id === 'q4' && window.matchMedia('(min-width: 700px)').matches) setTimeout(function () { inEk.focus(); }, 60);
     track('screen_view', { screen: id });
   }
 
@@ -109,10 +151,27 @@
     if (go) { ev.preventDefault(); show(go.getAttribute('data-go'), true); return; }
     var ans = ev.target.closest('.answer');
     if (ans) {
-      answers[ans.getAttribute('data-key')] = ans.getAttribute('data-val');
+      var q = byId(ans.getAttribute('data-q')), a = q.a[+ans.getAttribute('data-i')];
+      answers[q.key] = a[0];
+      if (q.key === 'ziel') calc.modus = a[2];
+      if (q.key === 'beruf') calc.beruf = a[0];
+      if (q.key === 'veranlagung') calc.verheiratet = a[2];
+      if (q.key === 'eigenkapital') calc.eigenkapital = a[2];
+      if (q.key === 'budget_monat') calc.budget = a[2];
       Array.prototype.forEach.call(ans.parentNode.children, function (b) { b.classList.toggle('is-picked', b === ans); });
-      track('answer', { key: ans.getAttribute('data-key'), val: ans.getAttribute('data-val') });
-      setTimeout(function () { show(ans.getAttribute('data-next'), true); }, 180);
+      track('answer', { key: q.key, val: a[0] });
+      setTimeout(function () { show(nextOf(q.id), true); }, 180);
+      return;
+    }
+    var chip = ev.target.closest('[data-chip]');
+    if (chip) { setEinkommen(+chip.getAttribute('data-chip')); return; }
+    var w = ev.target.closest('[data-weiter]');
+    if (w && !w.disabled) {
+      var id = w.getAttribute('data-weiter');
+      if (id === 'q4') answers.einkommen = eur(calc.einkommen);
+      if (id === 'q6p') answers.kaufpreis = eur(calc.invest);
+      track('answer', { key: id });
+      show(nextOf(id), true);
       return;
     }
     if (ev.target.closest('[data-back]')) { history.back(); }
@@ -120,9 +179,21 @@
 
   window.addEventListener('popstate', function (ev) {
     var id = (ev.state && ev.state.s) || location.hash.slice(1) || 'start';
-    if (id === 'danke' || (ORDER.indexOf(id) > 1 && !answers[QUESTIONS[0].key])) id = 'start';
+    if (id === 'danke' || (id !== 'start' && !calc.modus)) id = 'start';
     show(id, false);
   });
+
+  // Ergebnis mit der Rechen-Engine (js/bdx-engine.js), gleiche Logik wie rechner/index.html
+  function ergebnis() {
+    var zvE = window.BDX.zvEausBrutto(calc.einkommen, calc.beruf);
+    var p = { zvE: zvE, verheiratet: !!calc.verheiratet, ks: 0 };
+    if (calc.modus === 'kaufpreis') {
+      var r = window.BDX.passenderPreis(C, { zvE: zvE, verheiratet: p.verheiratet, ks: 0, eigenkapital: calc.eigenkapital, budgetMonat: calc.budget });
+      return { modell: r.modell, hinweis: r.hinweis, zvE: zvE };
+    }
+    p.invest = calc.invest;
+    return { modell: window.BDX.modell(C, p), hinweis: null, zvE: zvE };
+  }
 
   // Formular: Validierung + Versand an den n8n-Webhook
   var form = document.getElementById('lead-form');
@@ -163,13 +234,28 @@
     if (!ok) return;
 
     var tel = toE164(form.telefon.value);
+    var antworten = {};
+    Object.keys(answers).forEach(function (k) { antworten[k] = answers[k]; });
+    antworten.rechner = calc.modus;
+    var res = null;
+    try {
+      res = ergebnis();
+      var m = res.modell;
+      antworten.zve_geschaetzt = Math.round(res.zvE);
+      antworten.ergebnis_kaufpreis = Math.round(m.invest);
+      antworten.ergebnis_cashflow_vor = Math.round(m.cashflowVorMonat);
+      antworten.ergebnis_cashflow_nach = Math.round(m.cashflowNachMonat);
+      antworten.ergebnis_steuer_kaufjahr = Math.round(m.steuerKaufjahr);
+      antworten.ergebnis_steuer_laufend = Math.round(m.steuerLaufend);
+      antworten.hinweis = res.hinweis || '';
+    } catch (e) { track('calc_error', { error: String(e) }); }
     var payload = {
       vorname: form.vorname.value.trim(),
       nachname: form.nachname.value.trim(),
       email: form.email.value.trim(),
       telefon: tel,
       consent: true,
-      antworten: answers,
+      antworten: antworten,
       funnel: 'bdx-objekt-kalkulation',
       seite: location.origin + location.pathname,
       tracking: params(),
@@ -191,10 +277,18 @@
     }).then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       track('lead_submit', { status: res.status });
-      try { sessionStorage.setItem('bdx_lead', JSON.stringify({ vorname: payload.vorname, nachname: payload.nachname, email: payload.email, telefon: payload.telefon })); } catch (e) {}
+      var lead = { vorname: payload.vorname, nachname: payload.nachname, email: payload.email, telefon: payload.telefon };
+      try {
+        sessionStorage.setItem('bdx_lead', JSON.stringify(lead));
+        sessionStorage.setItem('bdx_rechner', JSON.stringify({ modus: calc.modus, lead: lead,
+          A: { beruf: calc.beruf, verheiratet: !!calc.verheiratet, einkommenArt: 'brutto', einkommen: calc.einkommen, ks: 0,
+               eigenkapital: calc.eigenkapital, budget: calc.budget, invest: calc.invest } }));
+      } catch (e) {}
+      var hi = document.getElementById('danke-name');
+      if (hi) hi.textContent = payload.vorname ? payload.vorname + ', hier ist' : 'Hier ist';
       history.replaceState({ s: 'danke' }, '', '#danke');
       show('danke', false);
-      document.dispatchEvent(new CustomEvent('bdx:danke'));
+      document.dispatchEvent(new CustomEvent('bdx:danke', { detail: { modus: calc.modus } }));
     }).catch(function (e) {
       track('lead_submit_error', { error: String(e) });
       errBox.textContent = 'Das Senden hat leider nicht geklappt. Bitte versuche es in einem Moment erneut.';
