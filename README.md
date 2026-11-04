@@ -32,7 +32,7 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 1. Landing: „Echte Objektrechnung · Kostenlos“, „DIE BDX OBJEKT-KALKULATION“, 3 Nutzenpunkte, CTA, Hinweiszeile; darunter Berlin-Luftbild, Key-Facts (von bdx-group.de), Neubau-im-Bestand-Prinzip mit 10 Qualitätsdimensionen (von bdx-group.de), zweiter CTA.
 2. Fragen 1–7: Ziel, Beruf, Bruttoeinkommen, Eigenkapital, Erfahrung, Kaufzeitpunkt, Priorität. Klick springt direkt weiter, Zurück per Button oder Browser.
 3. Kontakt: Vorname, Nachname, E-Mail, Telefon, Datenschutz-Checkbox (Pflicht, clientseitig validiert).
-4. Danke: 3 Schritte, Terminangebot mit Jarl (aktuell mailto an jarl@bdx-group.de).
+4. Danke: Ergebnis-Rechner, darunter Calendly Inline-Embed `calendly.com/jarl-bdx-group/30min` (js/calendly.js, lädt erst auf der Ergebnisseite, Name + E-Mail vorausgefüllt, mailto an Jarl als Fallback).
 
 ## Quellen der Aussagen
 - Key-Facts, 10 Qualitätsdimensionen, „unter Durchschnittspreis“, Adresse: bdx-group.de (gelesen 15.10.2026).
@@ -43,6 +43,6 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 1. Kalkulations-PDF einer echten Wohnung erstellen (Lead-Magnet existiert noch nicht).
 2. n8n-Workflow aktivieren + CORS freigeben; Weiterleitung an CRM (Pipedrive geplant) und E-Mail-Versand; Testbanner entfernen.
 3. Datenschutzerklärung fehlt auf bdx-group.de; Link im Footer und an der Checkbox setzen.
-4. Kalender-Tool für den Termin mit Jarl (statt mailto); optional VSL auf der Danke-Seite.
+4. Calendly-Event auf Deutsch umbenennen und Slots einstellen (Jarl); optional VSL auf der Danke-Seite.
 5. Echtes Logo-File von BDX (Website liefert nur Text-Wortmarke).
 6. Steuerliche Aussagen fachlich freigeben lassen; Tracking (Pixel/CAPI) mit Consent ergänzen.

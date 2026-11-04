@@ -112,9 +112,15 @@
       </div>
     </div>
     <div class="wrap narrow center">
-      <h2 class="h-sec">Schon jetzt mit Jarl sprechen?<br>15 Minuten reichen.</h2>
+      <h2 class="h-sec" id="termin">Schon jetzt mit Jarl sprechen?<br>Such dir direkt einen Termin aus.</h2>
       <p class="lead">Jarl Beger ist Geschäftsführer der BDX Group und rechnet die Wohnung mit dir an deinen Zahlen durch.</p>
-      <a class="cta" id="cta-termin" href="mailto:jarl@bdx-group.de?subject=Termin%20zur%20Objekt-Kalkulation">Termin mit Jarl anfragen →</a>
+    </div>
+    <!-- Calendly Inline-Embed (js/calendly.js): lädt erst auf der Ergebnisseite, Name + E-Mail vorausgefüllt -->
+    <div class="wrap narrow">
+      <div class="calendly-inline-widget" id="calendly-termin" data-url="https://calendly.com/jarl-bdx-group/30min" data-auto-load="false" style="min-width:320px;height:700px;"></div>
+    </div>
+    <div class="wrap narrow center">
+      <p class="calc-jump" id="termin-fallback">Kein passender Termin dabei? <a id="cta-termin" href="mailto:jarl@bdx-group.de?subject=Termin%20zur%20Objekt-Kalkulation">Schreib Jarl direkt →</a></p>
       <p class="fine">Hinweis: Die Objekt-Kalkulation ist eine Beispielrechnung und stellt keine Steuer- oder Anlageberatung dar. Steuerliche Effekte hängen von deiner persönlichen Situation ab.</p>
     </div>
   </section>
@@ -131,6 +137,6 @@
 <script src="js/bdx-engine.js?v=3"></script>
 <script src="js/funnel.js?v=3"></script>
 <script src="js/rechner-embed.js?v=3"></script>
-<script src="js/calendly.js?v=1"></script>
+<script src="js/calendly.js?v=2"></script>
 </body>
 </html>

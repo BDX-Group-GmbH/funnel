@@ -1,22 +1,19 @@
-/* Calendly Pop-up für den Button "Termin mit Jarl anfragen" (#cta-termin).
-   - Lädt Calendly erst beim Klick (keine Drittanbieter-Requests vorher).
-   - Übergibt Name + E-Mail aus dem Kontaktformular und UTM-Parameter.
-   - Ist CALENDLY_URL leer, bleibt der Button ein mailto-Link (Fallback). */
+/* Calendly Inline-Embed auf der Ergebnisseite (#calendly-termin), Code von Jarl:
+   https://calendly.com/jarl-bdx-group/30min
+   - Lädt Calendly erst, wenn die Ergebnisseite erscheint (Event bdx:danke). Vorher keine Drittanbieter-Requests.
+   - Name + E-Mail aus dem Kontaktformular (sessionStorage bdx_lead) und UTM-Parameter werden übergeben.
+   - Lädt Calendly nicht, bleibt der mailto-Link darunter als Fallback. */
 (function () {
-  var CALENDLY_URL = ''; // z. B. 'https://calendly.com/jarl-bdx/15min'
+  'use strict';
+  var box = document.getElementById('calendly-termin');
+  if (!box) return;
+  var URL_ = box.getAttribute('data-url');
+  var loading = null, done = false;
 
-  var btn = document.getElementById('cta-termin');
-  if (!btn || !CALENDLY_URL) return;
-
-  var loading = null;
   function loadCalendly() {
-    if (window.Calendly && window.Calendly.initPopupWidget) return Promise.resolve();
+    if (window.Calendly && window.Calendly.initInlineWidget) return Promise.resolve();
     if (loading) return loading;
     loading = new Promise(function (resolve, reject) {
-      var css = document.createElement('link');
-      css.rel = 'stylesheet';
-      css.href = 'https://assets.calendly.com/assets/external/widget.css';
-      document.head.appendChild(css);
       var s = document.createElement('script');
       s.src = 'https://assets.calendly.com/assets/external/widget.js';
       s.async = true;
@@ -28,14 +25,11 @@
   }
 
   function prefill() {
-    var f = document.querySelector('form input[name="email"]');
-    f = f ? f.form : null;
-    if (!f) return {};
-    var p = {};
-    var vn = f.vorname ? f.vorname.value.trim() : '';
-    var nn = f.nachname ? f.nachname.value.trim() : '';
-    if (vn || nn) p.name = (vn + ' ' + nn).trim();
-    if (f.email && f.email.value.trim()) p.email = f.email.value.trim();
+    var l = {};
+    try { l = JSON.parse(sessionStorage.getItem('bdx_lead') || '{}') || {}; } catch (e) {}
+    var p = {}, name = ((l.vorname || '') + ' ' + (l.nachname || '')).trim();
+    if (name) p.name = name;
+    if (l.email) p.email = l.email;
     return p;
   }
 
@@ -48,16 +42,13 @@
     return o;
   }
 
-  var mailto = btn.getAttribute('href');
-  btn.setAttribute('href', CALENDLY_URL);
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (window.BDX_EVENTS) window.BDX_EVENTS.push({ e: 'termin_click', d: {}, t: Date.now() });
+  document.addEventListener('bdx:danke', function () {
+    if (done) return;
     loadCalendly().then(function () {
-      window.Calendly.initPopupWidget({ url: CALENDLY_URL, prefill: prefill(), utm: utm() });
-    }, function () {
-      window.open(CALENDLY_URL, '_blank', 'noopener') || (location.href = mailto);
-    });
+      done = true;
+      box.innerHTML = '';
+      window.Calendly.initInlineWidget({ url: URL_, parentElement: box, prefill: prefill(), utm: utm() });
+    }, function () { box.style.display = 'none'; });
   });
 
   // Gebuchter Termin -> Event für Tracking (Pixel/PostHog können darauf hören)
