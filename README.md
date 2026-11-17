@@ -39,6 +39,18 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 - Jarl Beger als Geschäftsführer: Impressum bdx-group.de.
 - Zielgruppe/Qualifizierung (80k+, Eigenkapital, Kaufhorizont): BDX-Onboarding.
 
+## Tracking (seit 17.11.2026)
+- Meta Pixel `2339330703558356` und PostHog (EU, `phc_xtNu…`) als Original-Snippets im `<head>` von `index.html`. Nicht im Rechner-iframe (sonst doppelte PageViews).
+- `fbq.disablePushState = true`: Die Fragen wechseln per pushState, sonst käme pro Frage ein weiteres PageView.
+- Events in `js/tracking.js`: Meta `Lead` nach erfolgreichem Formular (HTTP 2xx, Event `bdx:danke`), Meta `Schedule` nach gebuchtem Calendly-Termin. PostHog: `funnel_screen`, `funnel_answer` (Antworttext nur für Ziel, Beruf, Veranlagung, Priorität; keine Einkommens-/Eigenkapitalwerte), `lead_submitted`, `termin_gebucht`.
+- Keine Namen, E-Mails oder Telefonnummern an Meta oder PostHog. Kein Consent-Banner: Pixel und PostHog laden sofort (siehe Offen).
+
+## Testimonials (seit 17.11.2026)
+- `js/testimonials.js`: 6 Kunden-Testimonials (Texte aus „BDX Testimonial-Skripte“, 09.11.2026) auf der Landing (`#testimonials-start`) und der Ergebnisseite (`#testimonials-danke`, passende Fälle zum Rechnerpfad zuerst). 3 sichtbar, Rest per „Weitere Erfahrungen anzeigen“. Disclaimer darunter, Provisions-Offenlegung bei Faruk.
+- Bilder `img/testimonials/*.jpg` sind KI-Platzhalter (Higgsfield nano_banana, 17.11.2026), keine echten Kundenfotos.
+- Celina: Lage „Moabit“ durch „in Berlin“ ersetzt (Pascalstraße 2 liegt in Charlottenburg).
+- Funnel-Payload enthält zusätzlich `ergebnis_sanierung`, `ergebnis_gesamt`, `ergebnis_eigenkapital`, `ergebnis_darlehen`, `ergebnis_miete_monat`, `ergebnis_rate_monat`, `ergebnis_tilgung_monat`, `ergebnis_afa_jahr` (für die Ergebnis-E-Mail).
+
 ## Offen vor echtem Traffic
 1. Kalkulations-PDF einer echten Wohnung erstellen (Lead-Magnet existiert noch nicht).
 2. n8n-Workflow aktivieren + CORS freigeben; Weiterleitung an CRM (Pipedrive geplant) und E-Mail-Versand; Testbanner entfernen.
@@ -46,3 +58,5 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 4. Calendly-Event auf Deutsch umbenennen und Slots einstellen (Jarl); optional VSL auf der Danke-Seite.
 5. Echtes Logo-File von BDX (Website liefert nur Text-Wortmarke).
 6. Steuerliche Aussagen fachlich freigeben lassen; Tracking (Pixel/CAPI) mit Consent ergänzen.
+7. Testimonial-Fotos durch echte Kundenfotos ersetzen, schriftliche Freigabe je Kunde (Text, Name, Firma, Zahlen) einholen, Zahlen belegen.
+8. Consent-Banner für Meta Pixel + PostHog (DSGVO/TTDSG) und Datenschutzerklärung mit beiden Diensten.

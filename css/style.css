@@ -150,3 +150,30 @@ main{flex:1}
 .num-q input[type=range]{width:100%;accent-color:var(--blue);height:32px}
 .range-ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:2px 0 20px}
 .q-help.top{margin:-12px auto 22px}
+
+/* Testimonials (js/testimonials.js) */
+.tm-sec{padding:4px 0 44px}
+.tm-sec.on-result{padding-top:8px}
+.tm-h{margin-top:4px}
+.tm-grid{display:grid;grid-template-columns:1fr;gap:14px;text-align:left}
+@media (min-width:820px){.tm-grid{grid-template-columns:repeat(3,1fr)}}
+.tm-card{border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:18px 18px 14px;display:flex;flex-direction:column;gap:12px}
+.tm-card[hidden]{display:none}
+.tm-head{display:flex;align-items:center;gap:12px}
+.tm-head img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;background:var(--soft)}
+.tm-name{display:block;font-weight:800;font-size:17px;line-height:1.2}
+.tm-rolle{display:block;font-size:13.5px;color:var(--muted)}
+.tm-zahl{background:var(--card);border-radius:8px;padding:10px 12px;font-size:14px;line-height:1.35;color:var(--ink)}
+.tm-zahl b{color:var(--blue);font-weight:800;font-size:18px}
+.tm-zahl span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.tm-zitat{margin:0;font-size:15px;line-height:1.55;color:#2a2a2a}
+.tm-story{font-size:14px;line-height:1.55;color:#3a3a3a;border-top:1px solid var(--line);padding-top:10px;margin-top:auto}
+.tm-story summary{cursor:pointer;color:var(--blue);font-weight:700;font-size:14px;list-style:none}
+.tm-story summary::-webkit-details-marker{display:none}
+.tm-story summary::after{content:" ↓"}
+.tm-story[open] summary::after{content:" ↑"}
+.tm-story p{margin:8px 0 0}
+.tm-offen{margin:0;font-size:12px;color:var(--muted);font-style:italic}
+.tm-toggle{display:block;margin:16px auto 0;background:none;border:1px solid var(--blue);color:var(--blue);border-radius:8px;padding:12px 20px;font-weight:700;font-size:15px;cursor:pointer}
+.tm-toggle:hover{background:rgba(0,30,255,.05)}
+.tm-disclaimer{margin:14px auto 22px;max-width:620px;text-align:center;font-size:12.5px;line-height:1.5;color:var(--muted);font-style:italic}

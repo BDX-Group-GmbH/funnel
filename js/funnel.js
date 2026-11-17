@@ -144,7 +144,10 @@
 
   // Lokales Event-Log (keine Übertragung). Für den Livebetrieb hier CRM/Tracking anbinden.
   window.BDX_EVENTS = [];
-  function track(name, data) { window.BDX_EVENTS.push({ e: name, d: data || {}, t: Date.now() }); }
+  function track(name, data) {
+    window.BDX_EVENTS.push({ e: name, d: data || {}, t: Date.now() });
+    if (typeof window.BDX_TRACK === 'function') { try { window.BDX_TRACK(name, data || {}); } catch (e) {} }  // js/tracking.js
+  }
 
   document.addEventListener('click', function (ev) {
     var go = ev.target.closest('[data-go]');
@@ -247,6 +250,15 @@
       antworten.ergebnis_cashflow_nach = Math.round(m.cashflowNachMonat);
       antworten.ergebnis_steuer_kaufjahr = Math.round(m.steuerKaufjahr);
       antworten.ergebnis_steuer_laufend = Math.round(m.steuerLaufend);
+      // Zusatzwerte für die Ergebnis-E-Mail (n8n): gleiche Zahlen wie auf der Ergebnisseite
+      antworten.ergebnis_sanierung = Math.round(m.sanierung);
+      antworten.ergebnis_gesamt = Math.round(m.gesamt);
+      antworten.ergebnis_eigenkapital = Math.round(m.eigenkapital);
+      antworten.ergebnis_darlehen = Math.round(m.darlehen);
+      antworten.ergebnis_miete_monat = Math.round(m.mieteMonat);
+      antworten.ergebnis_rate_monat = Math.round(m.rateMonat);
+      antworten.ergebnis_tilgung_monat = Math.round(m.darlehen * C.tilgung / 12);
+      antworten.ergebnis_afa_jahr = Math.round(m.afaJahr);
       antworten.hinweis = res.hinweis || '';
     } catch (e) { track('calc_error', { error: String(e) }); }
     var payload = {
