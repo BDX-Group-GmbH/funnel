@@ -51,7 +51,7 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 - `js/testimonials.js`: 6 Kunden-Testimonials (Texte aus „BDX Testimonial-Skripte“, 09.11.2026) auf der Landing (`#testimonials-start`) und der Ergebnisseite (`#testimonials-danke`, passende Fälle zum Rechnerpfad zuerst). 3 sichtbar, Rest per „Weitere Erfahrungen anzeigen“. Disclaimer darunter, Provisions-Offenlegung bei Faruk.
 - Seit 18.11.2026 nur noch Leon, Celina, Faruk mit echten Fotos von BDX (`img/testimonials/`, 240px-Ausschnitt). Victor, Carsten, Paul entfernt.
 - Celina: Lage „Moabit“ durch „in Berlin“ ersetzt (Pascalstraße 2 liegt in Charlottenburg).
-- Funnel-Payload enthält zusätzlich `ergebnis_sanierung`, `ergebnis_gesamt`, `ergebnis_eigenkapital`, `ergebnis_darlehen`, `ergebnis_miete_monat`, `ergebnis_rate_monat`, `ergebnis_tilgung_monat`, `ergebnis_afa_jahr` (für die Ergebnis-E-Mail).
+- Funnel-Payload enthält zusätzlich `ergebnis_sanierung`, `ergebnis_gesamt`, `ergebnis_eigenkapital`, `ergebnis_darlehen`, `ergebnis_miete_monat`, `ergebnis_rate_monat`, `ergebnis_tilgung_monat`, `ergebnis_afa_jahr`, seit 24.11. auch `ergebnis_kaufnebenkosten`, `ergebnis_vuv_kaufjahr`, `ergebnis_vuv_laufend` (für die Ergebnis-E-Mail). Bilder für die Mail als JPG unter `img/email/`.
 
 ## Offen vor echtem Traffic
 1. Kalkulations-PDF einer echten Wohnung erstellen (Lead-Magnet existiert noch nicht).
