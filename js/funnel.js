@@ -259,6 +259,9 @@
       antworten.ergebnis_rate_monat = Math.round(m.rateMonat);
       antworten.ergebnis_tilgung_monat = Math.round(m.darlehen * C.tilgung / 12);
       antworten.ergebnis_afa_jahr = Math.round(m.afaJahr);
+      antworten.ergebnis_kaufnebenkosten = Math.round(m.kaufNebenkosten);
+      antworten.ergebnis_vuv_kaufjahr = Math.round(m.vuvJahr1);
+      antworten.ergebnis_vuv_laufend = Math.round(m.vuvLaufend);
       antworten.hinweis = res.hinweis || '';
     } catch (e) { track('calc_error', { error: String(e) }); }
     var payload = {
