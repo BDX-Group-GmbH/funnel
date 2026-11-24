@@ -55,7 +55,7 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 
 ## Offen vor echtem Traffic
 1. Kalkulations-PDF einer echten Wohnung erstellen (Lead-Magnet existiert noch nicht).
-2. n8n-Workflow aktivieren + CORS freigeben; Weiterleitung an CRM (Pipedrive geplant) und E-Mail-Versand; Testbanner entfernen.
+2. n8n-Workflow aktivieren + CORS freigeben; Weiterleitung an CRM (Pipedrive geplant) und E-Mail-Versand.
 3. Datenschutzerklärung fehlt auf bdx-group.de; Link im Footer und an der Checkbox setzen.
 4. Calendly-Event auf Deutsch umbenennen und Slots einstellen (Jarl); optional VSL auf der Danke-Seite.
 5. Echtes Logo-File von BDX (Website liefert nur Text-Wortmarke).
