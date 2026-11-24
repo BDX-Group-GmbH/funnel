@@ -197,3 +197,5 @@ main{flex:1}
 @media (min-width:640px){.cc-btns{grid-template-columns:1fr 1fr auto}.cc-ghost{grid-column:auto}}
 body.cc-offen{padding-bottom:230px}
 .foot a[data-consent-open]{cursor:pointer}
+
+.consent a{color:var(--blue);text-decoration:underline}

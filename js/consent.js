@@ -3,11 +3,11 @@
    Ohne Entscheidung oder bei "Nur notwendige" gehen keine Requests an Meta oder PostHog.
    Gespeichert in localStorage "bdx_consent" ({v, statistik, marketing, t}), 6 Monate gültig.
    Footer-Link [data-consent-open] öffnet die Einstellungen erneut. Widerruf -> Opt-out + Reload.
-   DATENSCHUTZ_URL eintragen, sobald die Datenschutzerklärung online ist (dann erscheint der Link im Banner). */
+   DATENSCHUTZ_URL = Datenschutzerklärung von bdx-group.de (Link im Banner). */
 (function () {
   'use strict';
   var KEY = 'bdx_consent', VERSION = 1, MAX_AGE = 1000 * 60 * 60 * 24 * 180;
-  var DATENSCHUTZ_URL = '';
+  var DATENSCHUTZ_URL = 'https://bdx-group.de/datenschutz';
   var META_PIXEL_ID = '2339330703558356';
   var loaded = { statistik: false, marketing: false };
 

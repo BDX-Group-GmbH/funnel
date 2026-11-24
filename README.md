@@ -41,7 +41,7 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 
 ## Tracking + Cookie-Banner (seit 17.11.2026)
 - `js/consent.js`: Cookie-Banner („Alle akzeptieren“ / „Nur notwendige“ gleichwertig, „Einstellungen“ mit Statistik + Marketing). Meta Pixel `2339330703558356` (Marketing) und PostHog EU `phc_xtNu…` (Statistik) werden erst nach Einwilligung geladen, Original-Snippets stehen in `consent.js`. Ohne Einwilligung keine Requests an Meta/PostHog, auch kein noscript-Pixel.
-- Auswahl in localStorage `bdx_consent` (6 Monate). Footer-Link „Cookie-Einstellungen“ öffnet den Banner erneut; Widerruf -> Opt-out + Reload. `DATENSCHUTZ_URL` in `consent.js` eintragen, sobald die Datenschutzerklärung online ist.
+- Auswahl in localStorage `bdx_consent` (6 Monate). Footer-Link „Cookie-Einstellungen“ öffnet den Banner erneut; Widerruf -> Opt-out + Reload. `DATENSCHUTZ_URL` in `consent.js` = https://bdx-group.de/datenschutz (auch Footer + Formular-Checkbox).
 - `fbq.disablePushState = true`: Die Fragen wechseln per pushState, sonst käme pro Frage ein weiteres PageView.
 - Events in `js/tracking.js` (feuern nur, wenn das jeweilige Tool geladen ist): Meta `Lead` nach erfolgreichem Formular, `Schedule` nach gebuchtem Calendly-Termin. PostHog: `funnel_screen`, `funnel_answer` (Antworttext nur für Ziel, Beruf, Veranlagung, Priorität), `lead_submitted`, `termin_gebucht`. Keine Namen, E-Mails, Telefonnummern an Meta/PostHog.
 - PostHog-Dashboard: https://eu.posthog.com/project/303377/dashboard/1123837 (Org BDX Group, Projekt 303377).
@@ -49,7 +49,7 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 
 ## Testimonials (seit 17.11.2026)
 - `js/testimonials.js`: 6 Kunden-Testimonials (Texte aus „BDX Testimonial-Skripte“, 09.11.2026) auf der Landing (`#testimonials-start`) und der Ergebnisseite (`#testimonials-danke`, passende Fälle zum Rechnerpfad zuerst). 3 sichtbar, Rest per „Weitere Erfahrungen anzeigen“. Disclaimer darunter, Provisions-Offenlegung bei Faruk.
-- Bilder `img/testimonials/*.jpg` sind KI-Platzhalter (Higgsfield nano_banana, 17.11.2026), keine echten Kundenfotos.
+- Seit 18.11.2026 nur noch Leon, Celina, Faruk mit echten Fotos von BDX (`img/testimonials/`, 240px-Ausschnitt). Victor, Carsten, Paul entfernt.
 - Celina: Lage „Moabit“ durch „in Berlin“ ersetzt (Pascalstraße 2 liegt in Charlottenburg).
 - Funnel-Payload enthält zusätzlich `ergebnis_sanierung`, `ergebnis_gesamt`, `ergebnis_eigenkapital`, `ergebnis_darlehen`, `ergebnis_miete_monat`, `ergebnis_rate_monat`, `ergebnis_tilgung_monat`, `ergebnis_afa_jahr` (für die Ergebnis-E-Mail).
 
@@ -60,5 +60,5 @@ Stand 21.10.2026 (nach Call 20.10.): 7 Fragen, Frage 1 ist die Weiche. Altersvor
 4. Calendly-Event auf Deutsch umbenennen und Slots einstellen (Jarl); optional VSL auf der Danke-Seite.
 5. Echtes Logo-File von BDX (Website liefert nur Text-Wortmarke).
 6. Steuerliche Aussagen fachlich freigeben lassen; Tracking (Pixel/CAPI) mit Consent ergänzen.
-7. Testimonial-Fotos durch echte Kundenfotos ersetzen, schriftliche Freigabe je Kunde (Text, Name, Firma, Zahlen) einholen, Zahlen belegen.
-8. Datenschutzerklärung mit Meta Pixel, PostHog, Calendly, n8n/Pipedrive online stellen und in `consent.js` (DATENSCHUTZ_URL) + Footer verlinken.
+7. Schriftliche Freigabe von Leon, Celina, Faruk (Text, Name, Firma, Zahlen, Foto) ablegen; Fotonachweis Leon (© Rolf G. Wackenberg) klären.
+8. Datenschutzerklärung auf bdx-group.de ist verlinkt, deckt den Funnel aber nicht ab (nennt keine Formulare, Cookies, Meta Pixel, PostHog, Calendly, n8n/Pipedrive). Ergänzen lassen.

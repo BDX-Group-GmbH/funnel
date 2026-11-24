@@ -1,23 +1,10 @@
 /* BDX Testimonials · Landing (#testimonials-start) und Ergebnisseite (#testimonials-danke).
    Texte: Dokument „BDX Testimonial-Skripte – Problem, Lösung, Resultat“ (09.11.2026).
-   ACHTUNG: Bilder unter img/testimonials/ sind KI-generierte Platzhalter (Higgsfield), keine echten Kundenfotos.
-   Vor echtem Traffic: echte Fotos + schriftliche Freigabe je Kunde (Text, Name, Firma, Zahlen). */
+   Seit 18.11.2026 nur Leon, Celina, Faruk (echte Fotos von BDX, img/testimonials/). Victor, Carsten, Paul entfernt. */
 (function () {
   'use strict';
 
   var T = [
-    { id: 'victor', name: 'Victor', rolle: 'Unternehmer', modus: 'steuer',
-      zahl: 'rund 350.000 €', zahlLabel: 'steuerlich abgesetzt', fakt: '7 Wohnungen in einem Jahr',
-      zitat: 'Sieben Wohnungen in einem Jahr. Rund 350.000 Euro konnte ich steuerlich absetzen, meine Einkommensteuer lag nahezu bei null. Und alle Wohnungen sind nach Steuern im Plus.',
-      problem: 'Als Unternehmer habe ich jahrelang zugesehen, wie ein großer Teil meines Einkommens einfach ans Finanzamt geht. Das hat mich jedes Jahr wieder geärgert.',
-      loesung: 'Mit BDX habe ich das Geld stattdessen in Wohnungen gesteckt. Berliner Bestandswohnungen, komplett saniert, die mir gehören.',
-      zusammenarbeit: 'Bei sieben Wohnungen in einem Jahr muss einfach alles laufen. Es lief nach Plan, ohne dass ich hinterher telefonieren musste.' },
-    { id: 'carsten', name: 'Carsten', rolle: 'Zahnarzt', modus: 'steuer',
-      zahl: 'rund 150.000 €', zahlLabel: 'steuerlich abgesetzt', fakt: '4 Wohnungen, Steuerlast mehr als halbiert',
-      zitat: 'Vier Wohnungen in einem Jahr. Rund 150.000 Euro steuerlich abgesetzt, meine Steuerlast hat sich mehr als halbiert. Und alle vier Wohnungen tragen sich.',
-      problem: 'Als Zahnarzt zahle ich viel Steuern. Ich wollte schon lange in Immobilien investieren, aber ich habe keine Zeit, mich um Handwerker, Bauleitung und Mieter zu kümmern.',
-      loesung: 'BDX hat mir das komplett abgenommen: Einkauf, Sanierung, Vermietung. Ich habe unterschrieben, den Rest hat das Team gemacht.',
-      zusammenarbeit: 'Ich musste mich um nichts kümmern und wusste trotzdem immer, wo meine Wohnungen stehen. Genau so habe ich mir das gewünscht.' },
     { id: 'leon', name: 'Leon', rolle: 'Inhaber von Victilabs', modus: 'cashflow',
       zahl: 'rund 70.000 €', zahlLabel: 'steuerlich abgesetzt', fakt: 'Jeden Monat rund 100 € übrig',
       zitat: 'Rund 70.000 Euro konnte ich steuerlich absetzen. Und jeden Monat bleiben mir rund 100 Euro übrig.',
@@ -30,12 +17,6 @@
       problem: 'Das war meine erste Kapitalanlage. Ich hatte viele Fragen und ehrlich gesagt auch Respekt davor, etwas falsch zu machen.',
       loesung: 'BDX hat mir eine Wohnung in Berlin gezeigt, die Sanierung umgesetzt und mich durch jeden Schritt begleitet, vom Kauf bis zur Vermietung.',
       zusammenarbeit: 'Ich wusste immer, wo mein Projekt steht. Bei jeder Frage hatte ich direkt jemanden, der es wirklich kennt. Gerade beim ersten Mal ist das Gold wert.' },
-    { id: 'paul', name: 'Paul', rolle: 'Inhaber von Fairment', modus: 'kaufpreis',
-      zahl: 'rund 60.000 €', zahlLabel: 'Steuervorteil', fakt: 'Einkommensteuer halbiert, Wohnung Nr. 2 läuft',
-      zitat: 'Bei der ersten Wohnung kamen rund 60.000 Euro Steuervorteil zusammen, meine Einkommensteuer hat sich halbiert. Für mich war danach klar: Ich mache weiter. Die zweite kaufe ich gerade.',
-      problem: 'Als Unternehmer weißt du am Jahresende oft gar nicht, wohin mit der Steuerlast. Ich hatte immer das Gefühl, da geht zu viel verloren.',
-      loesung: 'Ich habe mit BDX eine erste Wohnung gekauft, saniert und vermietet. Das Konzept war von Anfang an klar durchgerechnet.',
-      zusammenarbeit: 'Was mich überzeugt hat: Es lief genau so, wie es vorher besprochen war. Deshalb bin ich jetzt bei Wohnung Nummer zwei.' },
     { id: 'faruk', name: 'Faruk', rolle: 'Teamlead bei Enpal', modus: 'kaufpreis',
       zahl: 'rund 30.000 €', zahlLabel: 'steuerlich abgesetzt', fakt: 'Als Angestellter, Wohnung trägt sich selbst',
       zitat: 'Rund 30.000 Euro steuerlich abgesetzt, und die Wohnung trägt sich selbst. Schon mit einer Wohnung hat sich das für mich deutlich bemerkbar gemacht.',

@@ -8,7 +8,7 @@
 <meta name="description" content="Die vollständige Kalkulation einer aktuellen Berliner BDX-Wohnung: Kaufpreis, Miete, Rate, laufende Kosten und Steuereffekt, vor und nach Steuern.">
 <link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="css/style.css?v=5">
+<link rel="stylesheet" href="css/style.css?v=6">
 
 <!-- Meta Pixel + PostHog laden erst nach Einwilligung: js/consent.js -->
 </head>
@@ -104,7 +104,7 @@
         <label class="field"><span class="field-ic" aria-hidden="true">👋</span><input name="nachname" type="text" autocomplete="family-name" placeholder="Dein Nachname" required></label>
         <label class="field"><span class="field-ic" aria-hidden="true">✉️</span><input name="email" type="email" autocomplete="email" placeholder="Deine E-Mail-Adresse" required></label>
         <label class="field"><span class="field-ic prefix" aria-hidden="true">+49</span><input name="telefon" type="tel" autocomplete="tel" placeholder="Deine Telefonnummer" required></label>
-        <label class="consent"><input name="consent" type="checkbox" required><span>Ja, ich stimme den Datenschutzbedingungen zu und bin einverstanden, dass die BDX Group mich zu meiner Auswertung per E-Mail und Telefon kontaktiert. Widerruf ist jederzeit möglich.</span></label>
+        <label class="consent"><input name="consent" type="checkbox" required><span>Ja, ich stimme den <a href="https://bdx-group.de/datenschutz" target="_blank" rel="noopener">Datenschutzbedingungen</a> zu und bin einverstanden, dass die BDX Group mich zu meiner Auswertung per E-Mail und Telefon kontaktiert. Widerruf ist jederzeit möglich.</span></label>
         <p class="form-error" id="form-error" role="alert" hidden>Bitte fülle alle Felder aus und bestätige die Datenschutzbedingungen.</p>
         <button class="cta block" type="submit" id="cta-submit">Meine Auswertung anzeigen →</button>
       </form>
@@ -148,17 +148,17 @@
 
 <footer class="foot">
   <a href="https://bdx-group.de/impressum" target="_blank" rel="noopener">Impressum</a>
-  <span>·</span><span>Datenschutz (folgt)</span>
+  <span>·</span><a href="https://bdx-group.de/datenschutz" target="_blank" rel="noopener">Datenschutz</a>
   <span>·</span><a href="#" data-consent-open>Cookie-Einstellungen</a>
   <p>BDX Group GmbH · Crellestraße 33 · 10827 Berlin</p>
 </footer>
 <div class="bar" aria-hidden="true"><div class="bar-fill" id="bar-fill"></div></div>
 
-<script src="js/consent.js?v=1"></script>
+<script src="js/consent.js?v=2"></script>
 <script src="js/tracking.js?v=1"></script>
 <script src="js/bdx-engine.js?v=3"></script>
 <script src="js/funnel.js?v=4"></script>
-<script src="js/testimonials.js?v=1"></script>
+<script src="js/testimonials.js?v=2"></script>
 <script src="js/rechner-embed.js?v=3"></script>
 <script src="js/calendly.js?v=2"></script>
 </body>
