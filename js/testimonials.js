@@ -5,7 +5,7 @@
   'use strict';
 
   var T = [
-    { id: 'leon', name: 'Leon', rolle: 'Inhaber von Victilabs', modus: 'cashflow',
+    { id: 'leon', name: 'Leon', rolle: 'Inhaber von Viktilabs', modus: 'cashflow',
       zahl: 'rund 70.000 €', zahlLabel: 'steuerlich abgesetzt', fakt: 'Jeden Monat rund 100 € übrig',
       zitat: 'Rund 70.000 Euro konnte ich steuerlich absetzen. Und jeden Monat bleiben mir rund 100 Euro übrig.',
       problem: 'Ich wollte in eine Immobilie investieren, aber keine, die mich jeden Monat Geld kostet. Viele Angebote, die ich gesehen habe, waren nur mit Zuschuss tragbar.',
