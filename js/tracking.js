@@ -26,7 +26,7 @@
   });
 
   document.addEventListener('bdx:termin_gebucht', function () {
-    fb('track', 'Schedule', { content_name: 'Termin Jarl 30min' });
+    fb('track', 'Schedule', { content_name: 'Termin 30min' });
     ph('termin_gebucht', {});
   });
 })();

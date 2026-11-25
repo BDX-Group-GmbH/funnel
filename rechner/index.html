@@ -317,9 +317,9 @@ var CONFIG = Object.assign({}, BDX_DEFAULTS, {
     var url = C.terminUrl ? C.terminUrl + (C.terminUrl.indexOf("?") < 0 ? "?" : "&") +
       "name=" + encodeURIComponent((lead.vorname + " " + lead.nachname).trim()) + "&email=" + encodeURIComponent(lead.email) : "";
     return '<div class="note">' + text + '</div>' +
-      (url ? '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="' + url + '" target="_top">Persönliches Gespräch mit Jarl buchen</a>'
+      (url ? '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="' + url + '" target="_top">Persönliches Gespräch mit Nils buchen</a>'
            : '<div class="note good">Wir melden uns in Kürze bei dir, um deine Rechnung mit einem konkreten Objekt durchzugehen.</div>' +
-             '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="mailto:jarl@bdx-group.de?subject=' + encodeURIComponent("Termin zum Rechner-Ergebnis") + '" target="_top">Termin mit Jarl anfragen →</a>');
+             '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="mailto:jarl@bdx-group.de?subject=' + encodeURIComponent("Termin zum Rechner-Ergebnis") + '" target="_top">Termin anfragen →</a>');
   }
 
   function renderResult(card) {
